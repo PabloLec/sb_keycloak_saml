@@ -1,0 +1,5 @@
+KEYCLOAK_URL = "http://keycloak-sp:8080/"
+KEYCLOAK_REALM = "SP_realm"
+KEYCLOAK_CLIENT_ID = "app"
+ADMIN_USER = "admin"
+ADMIN_PASSWORD = "admin"

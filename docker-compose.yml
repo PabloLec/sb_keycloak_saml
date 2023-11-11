@@ -1,6 +1,7 @@
 services:
   keycloak-sp:
     image: quay.io/keycloak/keycloak:22.0
+    container_name: keycloak-sp
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
@@ -10,12 +11,13 @@ services:
     command:
       - start-dev --import-realm
     volumes:
-      - keycloak_sp_data:/opt/keycloak/data
+      - ./realms/sp.json:/opt/keycloak/data/import/sp.json
     networks:
       - keycloak_network
 
   keycloak-idp:
     image: quay.io/keycloak/keycloak:22.0
+    container_name: keycloak-idp
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
@@ -25,13 +27,24 @@ services:
     command:
       - start-dev --import-realm
     volumes:
-      - keycloak_idp_data:/opt/keycloak/data
+      - ./realms/idp.json:/opt/keycloak/data/import/idp.json
+    networks:
+      - keycloak_network
+
+  app:
+    image: python:3.12
+    container_name: app
+    volumes:
+      - ./app:/app
+    ports:
+      - "8083:8080"
+    depends_on:
+      - keycloak-sp
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: /bin/bash -c "pip install poetry && cd /app && poetry install && poetry run python app.py"
     networks:
       - keycloak_network
 
 networks:
   keycloak_network:
-
-volumes:
-  keycloak_sp_data:
-  keycloak_idp_data:
