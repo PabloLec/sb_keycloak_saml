@@ -298,6 +298,7 @@
           "attributes": {}
         }
       ],
+      "http://localhost:8081/realms/SP_realm": [],
       "security-admin-console": [],
       "admin-cli": [],
       "account-console": [],
@@ -422,9 +423,9 @@
   "otpPolicyPeriod": 30,
   "otpPolicyCodeReusable": false,
   "otpSupportedApplications": [
-    "totpAppMicrosoftAuthenticatorName",
     "totpAppGoogleName",
-    "totpAppFreeOTPName"
+    "totpAppFreeOTPName",
+    "totpAppMicrosoftAuthenticatorName"
   ],
   "webAuthnPolicyRpEntityName": "keycloak",
   "webAuthnPolicySignatureAlgorithms": [
@@ -648,6 +649,66 @@
         "offline_access",
         "microprofile-jwt"
       ]
+    },
+    {
+      "id": "6fad5e58-51f3-4c25-a1fc-55ec36438044",
+      "clientId": "http://localhost:8081/realms/SP_realm",
+      "name": "",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "**********",
+      "redirectUris": [
+        "http://localhost:8081/realms/SP_realm/broker/saml/endpoint"
+      ],
+      "webOrigins": [
+        "http://localhost:8081"
+      ],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": false,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "protocol": "saml",
+      "attributes": {
+        "saml.assertion.signature": "false",
+        "client.secret.creation.time": "1699716464",
+        "saml_single_logout_service_url_post": "http://localhost:8081/realms/SP_realm/broker/saml/endpoint",
+        "saml.force.post.binding": "true",
+        "saml.encrypt": "false",
+        "saml_assertion_consumer_url_post": "http://localhost:8081/realms/SP_realm/broker/saml/endpoint",
+        "saml.server.signature": "true",
+        "saml.server.signature.keyinfo.ext": "false",
+        "saml.signing.certificate": "MIICnzCCAYcCBgGLvv0hfzANBgkqhkiG9w0BAQsFADATMREwDwYDVQQDDAhTUF9yZWFsbTAeFw0yMzExMTExNTI0MDJaFw0zMzExMTExNTI1NDJaMBMxETAPBgNVBAMMCFNQX3JlYWxtMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwtDbdYVIH2p0rHRrQ68MtBt+VuRmAhNzr9GAo/Uiu18AUtHRp9cgAEp6UfnxViAHhAJRbLhMf7NTeZ1rtPatKbf05OI2/D/G7hgoBQb9zHWFjfEEj+UkK7XMQdYh2GR+oucgwg6W4FD9BrHFsnaPkNEZBtj1jBsnkd+AtrvsfnkIQVxt6HHhimJo5IS95lyR6pAVw+94HKD9bZ8s+lwEP51b9cUKohTBVn/m7PkpDiwYsnRi9TlHK4VOf1dcTQ/lNzo2uHL2wr4uv8Tgttob8g3As7CwcCxEBrDjGv6NTZXiQuONIYaiJ9ZN8QL7zrrB6zfMfWI7XvUc6XgtigiuUwIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQA1282xu43I774rn3b+GJ1nFA4aU+zp4azlPBjsKWbjsUYGa1E4PEP00cIZW4tfJXrzP1mes760/x20HGP10WKWMtb5UrXu9/mmLssiwl129LhnGOpClJI5p2XIyZ04Z6xy7+XQYgsJWgJmy4KOx4DxIkCx5FgbN0oBdElEJ5UWwrHV4lqKOF/eW57w4ajW6BovyPxedyevDZGeBJ0GPIgTdxM64NSWSocxv40CtqLDS0oMrsVNWYsceWDC8OB5HEq/KBeTyY7IF+RAIuOmg7e+pJhPlwdUwKaabP6OAPkOc9LIJsNt1Ge69KjsUS8YVOqX/tTAvkyZlj5uDEssL0e+",
+        "saml.artifact.binding.identifier": "Y5NpCpJmh245jRytK8zeON/Gqzk=",
+        "saml.artifact.binding": "false",
+        "saml.signature.algorithm": "RSA_SHA256",
+        "saml_force_name_id_format": "false",
+        "saml.client.signature": "true",
+        "saml.authnstatement": "true",
+        "display.on.consent.screen": "false",
+        "saml_name_id_format": "persistent",
+        "saml.allow.ecp.flow": "false",
+        "saml_signature_canonicalization_method": "http://www.w3.org/2001/10/xml-exc-c14n#",
+        "saml.onetimeuse.condition": "false",
+        "saml.server.signature.keyinfo.xmlSigKeyInfoKeyNameTransformer": "NONE"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": true,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "role_list"
+      ],
+      "optionalClientScopes": []
     },
     {
       "id": "dd48c68f-2fee-4abc-8fca-d80f2fc9266a",
@@ -1308,14 +1369,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "oidc-full-name-mapper",
+            "oidc-usermodel-property-mapper",
+            "oidc-address-mapper",
+            "oidc-sha256-pairwise-sub-mapper",
             "oidc-usermodel-attribute-mapper",
             "saml-role-list-mapper",
-            "oidc-sha256-pairwise-sub-mapper",
-            "oidc-usermodel-property-mapper",
-            "saml-user-attribute-mapper",
             "saml-user-property-mapper",
-            "oidc-address-mapper"
+            "saml-user-attribute-mapper",
+            "oidc-full-name-mapper"
           ]
         }
       },
@@ -1363,13 +1424,13 @@
         "config": {
           "allowed-protocol-mapper-types": [
             "saml-role-list-mapper",
-            "oidc-usermodel-attribute-mapper",
-            "saml-user-attribute-mapper",
-            "oidc-usermodel-property-mapper",
-            "saml-user-property-mapper",
             "oidc-sha256-pairwise-sub-mapper",
+            "oidc-usermodel-attribute-mapper",
+            "oidc-address-mapper",
             "oidc-full-name-mapper",
-            "oidc-address-mapper"
+            "saml-user-property-mapper",
+            "saml-user-attribute-mapper",
+            "oidc-usermodel-property-mapper"
           ]
         }
       },

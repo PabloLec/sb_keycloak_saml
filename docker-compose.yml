@@ -5,15 +5,15 @@ services:
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
-      - PROXY_ADDRESS_FORWARDING=true
-    ports:
-      - "8081:8080"
+      - KC_HTTP_PORT=8081
+      - KC_HTTPS_PORT=8443
+    network_mode: host
     command:
-      - start-dev --import-realm
+      - start-dev --import-realm --log-level=DEBUG --https-certificate-file=/tmp/certs/keycloak-server.crt.pem --https-certificate-key-file=/tmp/certs/keycloak-server.key.pem
     volumes:
-      - ./realms/sp.json:/opt/keycloak/data/import/sp.json
-    networks:
-      - keycloak_network
+      - ./realms/internal.json:/opt/keycloak/data/import/internal.json
+      - ./realms/sp_with_idp.json:/opt/keycloak/data/import/sp.json
+      - ./certs:/tmp/certs
 
   keycloak-idp:
     image: quay.io/keycloak/keycloak:22.0
@@ -21,30 +21,21 @@ services:
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
-      - PROXY_ADDRESS_FORWARDING=true
-    ports:
-      - "8082:8080"
+      - KC_HTTP_PORT=8082
+      - KC_HTTPS_PORT=8444
+    network_mode: host
     command:
-      - start-dev --import-realm
+      - start-dev --import-realm --log-level=DEBUG --https-certificate-file=/tmp/certs/keycloak-server.crt.pem --https-certificate-key-file=/tmp/certs/keycloak-server.key.pem
     volumes:
-      - ./realms/idp.json:/opt/keycloak/data/import/idp.json
-    networks:
-      - keycloak_network
+      - ./realms/idp_with_sp_client.json:/opt/keycloak/data/import/idp.json
+      - ./certs:/tmp/certs
 
   app:
     image: python:3.12
     container_name: app
     volumes:
       - ./app:/app
-    ports:
-      - "8083:8080"
-    depends_on:
-      - keycloak-sp
+    network_mode: host
     environment:
       - PYTHONUNBUFFERED=1
     command: /bin/bash -c "pip install poetry && cd /app && poetry install && poetry run python app.py"
-    networks:
-      - keycloak_network
-
-networks:
-  keycloak_network:
