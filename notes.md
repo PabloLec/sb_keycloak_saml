@@ -16,8 +16,11 @@ Steps to reproduce :
 - [SP] Service provider metadata can then be obtained with http://localhost:8081/realms/SP_realm/broker/saml/endpoint/descriptor
 - [IdP] Create a new client on realm `IdP_realm` with the UI using Clients > Import Client and import XML descriptor from the previous step
 
+URL to access the SP : localhost:8081/realms/SP_realm/protocol/openid-connect/auth?client_id=frontend&response_type=code&redirect_uri=http://localhost:8083%2F
+
 ## TODO
 
+- Redirect to SP if user is not logged in
 - Keycloak certificates change after restart, need to find a way to persist them
 - Trying to fix with `KC_HTTPS_PORT`, `https-certificate-file` and `https-certificate-key-file` in docker-compose.yml
 - idp.json/sp.json = without "steps to reproduce", idp_with_sp_client.json/sp_with_idp.json = with "steps to reproduce"
