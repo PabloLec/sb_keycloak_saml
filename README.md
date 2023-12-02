@@ -8,17 +8,17 @@ Additionally, a demo application is included to act as an application secured by
 sequenceDiagram
     actor User
     participant Application
-    participant SP
-    participant IdP
-    User->>Application: Access
-    Application->>SP: Is user authenticated?
-    SP->>Application: User is not authenticated
+    participant SP as Service Provider
+    participant IdP as Identity Provider
+    User->>Application: Requests access
+    Application->>SP: Checks if user is authenticated
+    SP->>Application: User not authenticated
     Application->>SP: Redirects user for authentication
-    SP->>IdP: Redirects unauthenticated User 
-    IdP->>User: Prompts User for authentication
-    User->>IdP: Login
+    SP->>IdP: Redirects user for authentication
+    IdP->>User: Prompts user to log in
+    User->>IdP: Logs in
     IdP->>SP: Redirects authenticated user
-    Note over SP: Map to known user or prompts for account creation
+    Note over SP: Maps user to existing account or prompts to create a new one
     SP->>Application: Redirects authenticated user
 ```
 
