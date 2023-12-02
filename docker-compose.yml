@@ -9,11 +9,10 @@ services:
       - KC_HTTPS_PORT=8443
     network_mode: host
     command:
-      - start-dev --import-realm --log-level=DEBUG --https-certificate-file=/tmp/certs/keycloak-server.crt.pem --https-certificate-key-file=/tmp/certs/keycloak-server.key.pem
+      - start-dev --import-realm --log-level=DEBUG
     volumes:
       - ./realms/internal.json:/opt/keycloak/data/import/internal.json
-      - ./realms/sp_with_idp.json:/opt/keycloak/data/import/sp.json
-      - ./certs:/tmp/certs
+      - ./realms/SP_realm.json:/opt/keycloak/data/import/SP_realm.json
 
   keycloak-idp:
     image: quay.io/keycloak/keycloak:22.0
@@ -25,10 +24,9 @@ services:
       - KC_HTTPS_PORT=8444
     network_mode: host
     command:
-      - start-dev --import-realm --log-level=DEBUG --https-certificate-file=/tmp/certs/keycloak-server.crt.pem --https-certificate-key-file=/tmp/certs/keycloak-server.key.pem
+      - start-dev --import-realm --log-level=DEBUG
     volumes:
-      - ./realms/idp_with_sp_client.json:/opt/keycloak/data/import/idp.json
-      - ./certs:/tmp/certs
+      - ./realms/IdP_realm.json:/opt/keycloak/data/import/IdP_realm.json
 
   app:
     image: python:3.12
