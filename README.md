@@ -53,14 +53,6 @@ sequenceDiagram
 Docker compose runs 3 containers: Keycloak IdP, Keycloak SP, and a demo Python app. Keycloak containers load pre-configured realms stored in the `realms` folder.
 On startup, the Python app waits for Keycloak to be ready then creates a new user on IdP with username `john` and password `john`.
 
-## Testing
-
-1. Go to `http://localhost:8081/realms/SP_realm/protocol/openid-connect/auth?client_id=frontend&response_type=code&redirect_uri=http://localhost:8083%2F`.
-2. You should be redirected to the IdP login page.
-3. Login with username `john` and password `john`.
-4. You should be redirected to the SP and be prompted to create a new user.
-5. Finally, you should be redirected to the demo app and see a welcome message.
-
 ## Notes
 
 RSA private keys were added in exported realms JSON in plain text for convenience.
@@ -69,3 +61,16 @@ RSA private keys were added in exported realms JSON in plain text for convenienc
 
 - A custom mapping could be added in SP to link users from IdP thus avoiding the user creation step.
 - Demo app could redirect to SP if user is not logged in.
+
+## How to run
+
+- `docker-compose up`
+- Follow instructions in [Testing](#testing)
+
+## Testing
+
+1. Go to `http://localhost:8081/realms/SP_realm/protocol/openid-connect/auth?client_id=frontend&response_type=code&redirect_uri=http://localhost:8083%2F`.
+2. You should be redirected to the IdP login page.
+3. Login with username `john` and password `john`.
+4. You should be redirected to the SP and be prompted to create a new user.
+5. Finally, you should be redirected to the demo app and see a welcome message.
