@@ -158,14 +158,14 @@
                 "impersonation",
                 "manage-users",
                 "query-groups",
+                "create-client",
                 "manage-authorization",
                 "manage-identity-providers",
-                "create-client",
                 "view-events",
                 "view-identity-providers",
                 "query-users",
-                "view-authorization",
-                "query-realms"
+                "query-realms",
+                "view-authorization"
               ]
             }
           },
@@ -417,10 +417,10 @@
       "id": "9848823a-9f38-4326-b8d5-007d2cee37a7",
       "name": "admin",
       "path": "/admin",
+      "subGroups": [],
       "attributes": {},
       "realmRoles": [],
-      "clientRoles": {},
-      "subGroups": []
+      "clientRoles": {}
     }
   ],
   "defaultRole": {
@@ -442,10 +442,11 @@
   "otpPolicyPeriod": 30,
   "otpPolicyCodeReusable": false,
   "otpSupportedApplications": [
-    "totpAppMicrosoftAuthenticatorName",
     "totpAppFreeOTPName",
-    "totpAppGoogleName"
+    "totpAppGoogleName",
+    "totpAppMicrosoftAuthenticatorName"
   ],
+  "localizationTexts": {},
   "webAuthnPolicyRpEntityName": "keycloak",
   "webAuthnPolicySignatureAlgorithms": [
     "ES256"
@@ -458,6 +459,7 @@
   "webAuthnPolicyCreateTimeout": 0,
   "webAuthnPolicyAvoidSameAuthenticatorRegister": false,
   "webAuthnPolicyAcceptableAaguids": [],
+  "webAuthnPolicyExtraOrigins": [],
   "webAuthnPolicyPasswordlessRpEntityName": "keycloak",
   "webAuthnPolicyPasswordlessSignatureAlgorithms": [
     "ES256"
@@ -470,6 +472,7 @@
   "webAuthnPolicyPasswordlessCreateTimeout": 0,
   "webAuthnPolicyPasswordlessAvoidSameAuthenticatorRegister": false,
   "webAuthnPolicyPasswordlessAcceptableAaguids": [],
+  "webAuthnPolicyPasswordlessExtraOrigins": [],
   "scopeMappings": [
     {
       "clientScope": "offline_access",
@@ -701,8 +704,8 @@
         "oidc.ciba.grant.enabled": "false",
         "backchannel.logout.session.required": "true",
         "post.logout.redirect.uris": "+",
-        "oauth2.device.authorization.grant.enabled": "false",
         "display.on.consent.screen": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
         "backchannel.logout.revoke.offline.tokens": "false"
       },
       "authenticationFlowBindingOverrides": {},
@@ -1385,8 +1388,8 @@
       "firstBrokerLoginFlowAlias": "first broker login",
       "config": {
         "postBindingLogout": "true",
-        "singleLogoutServiceUrl": "http://localhost:8082/realms/IdP_realm/protocol/saml",
         "postBindingResponse": "true",
+        "singleLogoutServiceUrl": "http://localhost:8082/realms/IdP_realm/protocol/saml",
         "backchannelSupported": "false",
         "xmlSigKeyInfoKeyNameTransformer": "KEY_ID",
         "idpEntityId": "http://localhost:8082/realms/IdP_realm",
@@ -1401,8 +1404,8 @@
         "nameIDPolicyFormat": "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent",
         "entityId": "http://localhost:8081/realms/SP_realm",
         "signSpMetadata": "false",
-        "wantAssertionsEncrypted": "false",
         "signatureAlgorithm": "RSA_SHA256",
+        "wantAssertionsEncrypted": "false",
         "wantAssertionsSigned": "false",
         "postBindingAuthnRequest": "true",
         "forceAuthn": "false",
@@ -1439,14 +1442,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "oidc-address-mapper",
-            "oidc-full-name-mapper",
             "oidc-usermodel-property-mapper",
-            "saml-user-property-mapper",
-            "oidc-sha256-pairwise-sub-mapper",
             "saml-role-list-mapper",
             "oidc-usermodel-attribute-mapper",
-            "saml-user-attribute-mapper"
+            "oidc-address-mapper",
+            "oidc-full-name-mapper",
+            "saml-user-attribute-mapper",
+            "saml-user-property-mapper",
+            "oidc-sha256-pairwise-sub-mapper"
           ]
         }
       },
@@ -1483,13 +1486,13 @@
         "config": {
           "allowed-protocol-mapper-types": [
             "oidc-sha256-pairwise-sub-mapper",
-            "oidc-usermodel-property-mapper",
             "oidc-usermodel-attribute-mapper",
-            "oidc-address-mapper",
-            "saml-user-property-mapper",
-            "saml-user-attribute-mapper",
             "oidc-full-name-mapper",
-            "saml-role-list-mapper"
+            "oidc-address-mapper",
+            "saml-role-list-mapper",
+            "oidc-usermodel-property-mapper",
+            "saml-user-property-mapper",
+            "saml-user-attribute-mapper"
           ]
         }
       },
@@ -1950,7 +1953,7 @@
           "authenticatorConfig": "review profile config",
           "authenticator": "idp-review-profile",
           "authenticatorFlow": false,
-          "requirement": "REQUIRED",
+          "requirement": "DISABLED",
           "priority": 10,
           "autheticatorFlow": false,
           "userSetupAllowed": false
@@ -2023,14 +2026,6 @@
           "authenticatorFlow": false,
           "requirement": "REQUIRED",
           "priority": 20,
-          "autheticatorFlow": false,
-          "userSetupAllowed": false
-        },
-        {
-          "authenticator": "registration-profile-action",
-          "authenticatorFlow": false,
-          "requirement": "REQUIRED",
-          "priority": 40,
           "autheticatorFlow": false,
           "userSetupAllowed": false
         },
@@ -2239,7 +2234,7 @@
     "cibaInterval": "5",
     "realmReusableOtpCode": "false"
   },
-  "keycloakVersion": "22.0.5",
+  "keycloakVersion": "23.0.6",
   "userManagedAccessAllowed": false,
   "clientProfiles": {
     "profiles": []

@@ -6,7 +6,8 @@ app = FastAPI()
 
 @app.get("/")
 def protected_route(user=Depends(keycloak_auth)):
-    return {"message": f"You are authenticated with email {user['email']}"}
+    print(f"User: {user}")
+    return {"message": f"You are authenticated as user {user['preferred_username']}"}
 
 if __name__ == "__main__":
     create_user_in_idp("john", "john")
