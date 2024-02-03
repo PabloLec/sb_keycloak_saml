@@ -18,7 +18,7 @@ sequenceDiagram
     IdP->>User: Prompts user to log in
     User->>IdP: Logs in
     IdP->>SP: Redirects authenticated user
-    Note over SP: Maps user to existing account or prompts to create a new one
+    Note over SP: Maps user to existing account or dynamically creates a new user
     SP->>Application: Redirects authenticated user
 ```
 
@@ -51,11 +51,11 @@ sequenceDiagram
 
 ## Startup
 
-Docker compose runs 3 containers: Keycloak IdP, Keycloak SP, and a demo Python app. Keycloak containers load pre-configured realms stored in the `realms` folder.
+Docker compose runs 5 containers: Keycloak IdP, Keycloak SP, a demo Python app and two Postgres instances for KC.  
+Keycloak containers load pre-configured realms stored in the `realms` folder.  
 On startup, the Python app waits for Keycloak to be ready then creates a new user on IdP with username `john` and password `john`.
 
 ## Notes
-
 
 #### Private keys
 RSA private keys were added in exported realms JSON in plain text for convenience.  
@@ -75,10 +75,6 @@ Otherwise, this could be achieved by setting SAML IdP as the only required step 
 #### User Creation
 User is dynamically created on the SP without prompting the user to fill a form. The persistent ID provided by IdP is used as the username and thus next time the user logs in, the same account is used.
 If needed, more information could be added to the IdP response and mapped to the user attributes on the SP such as email, first name, etc.
-
-## Enhancements
-
-- Demo app could redirect to SP if user is not logged in.
 
 ## How to run
 
