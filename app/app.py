@@ -12,7 +12,8 @@ def protected_route(user=Depends(keycloak_auth)):
         return RedirectResponse(LOGIN_URL)
 
     print(f"User: {user}")
-    return {"message": f"You are authenticated as user {user['preferred_username']}"}
+    roles = user.get("realm_access").get("roles")
+    return {"message": f"You are authenticated as user {user['preferred_username']} with roles {roles}"}
 
 if __name__ == "__main__":
     create_user_in_idp("john", "john")

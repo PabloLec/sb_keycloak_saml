@@ -45,6 +45,8 @@ sequenceDiagram
 - Add SAML identity provider with name `saml` on `SP_realm` with "Service provider entity ID" set to `http://localhost:8081/realms/SP_realm` and "SAML entity descriptor" set to `http://localhost:8082/realms/IdP_realm/protocol/saml/descriptor`.
 - Set `saml` as default identity provider (to bypass default login form) on `SP_realm` by going to Authentication > Flows > `browser`, then clicking on the cog icon and setting "Default identity provider" to `saml` (with any alias).
 - To dynamically create users on the SP without prompting the user to fill a form, go to Authentication > `first broker login` > and disable `Review Profile`.
+- Go to Realm roles and create a role named `CUSTOMER`.
+- Go to Identity Providers > `saml` > Mappers and create a new mapper with type `Hardcoded Role` and value `CUSTOMER`.
 
 **Back to IdP:**
 - Create a new client on realm `IdP_realm` with the UI using Clients > Import Client and import SP SAML XML descriptor.
@@ -75,6 +77,7 @@ Otherwise, this could be achieved by setting SAML IdP as the only required step 
 #### User Creation
 User is dynamically created on the SP without prompting the user to fill a form. The persistent ID provided by IdP is used as the username and thus next time the user logs in, the same account is used.
 If needed, more information could be added to the IdP response and mapped to the user attributes on the SP such as email, first name, etc.
+Roles are already provided by the IdP but for the demo purpose, a role (`CUSTOMER`) is hardcoded on the SP.
 
 ## How to run
 
