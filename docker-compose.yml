@@ -1,30 +1,36 @@
 services:
   keycloak-sp:
-    image: quay.io/keycloak/keycloak:22.0
+    image: quay.io/keycloak/keycloak:23.0
     container_name: keycloak-sp
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
       - KC_HTTP_PORT=8081
       - KC_HTTPS_PORT=8443
+      - KC_LOG_LEVEL=DEBUG
     network_mode: host
-    command:
-      - start-dev --import-realm --log-level=DEBUG
+    command: [
+      "start-dev",
+      "--import-realm",
+    ]
     volumes:
       - ./realms/internal.json:/opt/keycloak/data/import/internal.json
       - ./realms/SP_realm.json:/opt/keycloak/data/import/SP_realm.json
 
   keycloak-idp:
-    image: quay.io/keycloak/keycloak:22.0
+    image: quay.io/keycloak/keycloak:23.0
     container_name: keycloak-idp
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
       - KC_HTTP_PORT=8082
       - KC_HTTPS_PORT=8444
+      - KC_LOG_LEVEL=DEBUG
     network_mode: host
-    command:
-      - start-dev --import-realm --log-level=DEBUG
+    command: [
+      "start-dev",
+      "--import-realm",
+    ]
     volumes:
       - ./realms/IdP_realm.json:/opt/keycloak/data/import/IdP_realm.json
 
