@@ -19,7 +19,7 @@ def exchange_code_for_token(code: str) -> str:
 def keycloak_auth(request: Request):
     code = request.query_params.get("code")
     if not code:
-        raise HTTPException(status_code=401, detail="Authorization code is missing")
+        return None
 
     token = exchange_code_for_token(code)
     return KEYCLOAK_OPENID.decode_token(token, key=KEYCLOAK_OPENID.public_key, options={"verify_signature": False, "verify_aud": False, "verify_exp": False})

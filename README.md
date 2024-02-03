@@ -83,8 +83,8 @@ If needed, more information could be added to the IdP response and mapped to the
 
 ## Testing
 
-1. Go to `http://localhost:8081/realms/SP_realm/protocol/openid-connect/auth?client_id=frontend&response_type=code&redirect_uri=http://localhost:8083%2F&kc_idp_hint=saml`.
+1. Go to `http://localhost:8083` (Demo Python app that acts as the KC protected service/frontend).
 2. You should be redirected to the IdP login page.
 3. Login with username `john` and password `john`.
-4. You should be redirected to the SP and be prompted to create a new user.
+4. You should be redirected to the SP which will create a new user account.
 5. Finally, you should be redirected to the demo app and see a welcome message.
