@@ -1,13 +1,28 @@
 services:
+  keycloak-sp-db:
+    image: postgres:latest
+    container_name: keycloak-sp-db
+    environment:
+      POSTGRES_DB: keycloakspdb
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    network_mode: host
+    command: "-p 5432"
+
   keycloak-sp:
     image: quay.io/keycloak/keycloak:23.0
     container_name: keycloak-sp
     environment:
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin
-      - KC_HTTP_PORT=8081
-      - KC_HTTPS_PORT=8443
-      - KC_LOG_LEVEL=DEBUG
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: "jdbc:postgresql://localhost:5432/keycloakspdb"
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: password
+      KC_TRANSACTION_XA_ENABLED: "false"
+      KC_HTTP_PORT: 8081
+      KC_HTTPS_PORT: 8443
+      KC_LOG_LEVEL: DEBUG
     network_mode: host
     command: [
       "start-dev",
@@ -16,16 +31,33 @@ services:
     volumes:
       - ./realms/internal.json:/opt/keycloak/data/import/internal.json
       - ./realms/SP_realm.json:/opt/keycloak/data/import/SP_realm.json
+    depends_on:
+      - keycloak-sp-db
+
+  keycloak-idp-db:
+    image: postgres:latest
+    container_name: keycloak-idp-db
+    environment:
+      POSTGRES_DB: keycloakidpdb
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    network_mode: host
+    command: "-p 5433"
 
   keycloak-idp:
     image: quay.io/keycloak/keycloak:23.0
     container_name: keycloak-idp
     environment:
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin
-      - KC_HTTP_PORT=8082
-      - KC_HTTPS_PORT=8444
-      - KC_LOG_LEVEL=DEBUG
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: "jdbc:postgresql://localhost:5433/keycloakidpdb"
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: password
+      KC_TRANSACTION_XA_ENABLED: "false"
+      KC_HTTP_PORT: 8082
+      KC_HTTPS_PORT: 8444
+      KC_LOG_LEVEL: DEBUG
     network_mode: host
     command: [
       "start-dev",
@@ -33,6 +65,8 @@ services:
     ]
     volumes:
       - ./realms/IdP_realm.json:/opt/keycloak/data/import/IdP_realm.json
+    depends_on:
+      - keycloak-idp-db
 
   app:
     image: python:3.12
@@ -43,3 +77,6 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
     command: /bin/bash -c "pip install poetry && cd /app && poetry install && poetry run python app.py"
+    depends_on:
+      - keycloak-sp
+      - keycloak-idp
