@@ -24,11 +24,11 @@ sequenceDiagram
 
 ## Context
 
-- Keycloak IdP runs on `http://localhost:8081`
-- Keycloak SP runs on `http://localhost:8082`
+- Keycloak SP runs on `http://localhost:8081`
+- Keycloak IdP runs on `http://localhost:8082`
 - Demo app runs on `http://localhost:8083`
+- SP SAML broker descriptor can be obtained with `http://localhost:8081/realms/SP_realm/broker/saml/endpoint/descriptor`
 - IdP SAML descriptor can be obtained with `http://localhost:8082/realms/IdP_realm/protocol/saml/descriptor`
-- SP SAML broker descriptor can then be obtained with `http://localhost:8081/realms/SP_realm/broker/saml/endpoint/descriptor`
 
 ## Pre-prepared Steps
 
