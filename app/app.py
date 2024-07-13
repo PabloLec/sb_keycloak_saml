@@ -4,7 +4,7 @@ from auth import keycloak_auth
 from keycloak_service import create_user_in_idp
 
 app = FastAPI()
-LOGIN_URL = "http://localhost:8081/realms/SP_realm/protocol/openid-connect/auth?client_id=frontend&response_type=code&redirect_uri=http://localhost:8083%2F&kc_idp_hint=saml"
+LOGIN_URL = "http://localhost:8081/realms/SP_realm/protocol/openid-connect/auth?client_id=frontend&response_type=code&redirect_uri=http://localhost:8083%2F&kc_idp_hint=SAML_IDP"
 
 @app.get("/")
 def protected_route(user=Depends(keycloak_auth)):

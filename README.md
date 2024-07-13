@@ -42,11 +42,12 @@ sequenceDiagram
 - Create realm `SP_realm`.
 - On realm `SP_realm`, go to Realm Settings > Keys > Providers. Disable `rsa-generated` (or lower its priority) and click on Add Provider > rsa then add a provider with private key (see `keys/sp_private_key.pem`).
 - Create an OpenID Connect client on realm `SP_realm` with client id `frontend` setting "Root URL", "Home URL" and "Valid redirect URIs" to `http://localhost:8083/`.
-- Add SAML identity provider with name `saml` on `SP_realm` with "Service provider entity ID" set to `http://localhost:8081/realms/SP_realm` and "SAML entity descriptor" set to `http://localhost:8082/realms/IdP_realm/protocol/saml/descriptor`.
-- Set `saml` as default identity provider (to bypass default login form) on `SP_realm` by going to Authentication > Flows > `browser`, then clicking on the cog icon and setting "Default identity provider" to `saml` (with any alias).
-- To dynamically create users on the SP without prompting the user to fill a form, go to Authentication > `first broker login` > and disable `Review Profile`.
+- Add SAML identity provider with alias `SAML_IDP` on `SP_realm` with "Service provider entity ID" set to `http://localhost:8081/realms/SP_realm` and "SAML entity descriptor" set to `http://localhost:8082/realms/IdP_realm/protocol/saml/descriptor`.
+- Create a new authentication flow with name `SAML_IDP_FLOW` in Authentication > Create flow. Add an execution, choose `Identity Provider Redirector`, set it as required and click on the cog icon to edit its config and set `SAML_IDP` as default identity provider.
+- Go back to client `frontend`, got to Advanced section and set `SAML_IDP_FLOW` as browser flow in Authentication flow overrides.
+- To dynamically create users on the SP without prompting the user to fill a form, go to Authentication > `first broker login` > and disable `Review Profile`. (Alternatively, if you wish to keep this flow intact you can duplicate it and edit First login flow in IdP settings page)
 - Go to Realm roles and create a role named `CUSTOMER`.
-- Go to Identity Providers > `saml` > Mappers and create a new mapper with type `Hardcoded Role` and value `CUSTOMER`.
+- Go to Identity Providers > `SAML_IDP` > Mappers and create a new mapper with type `Hardcoded Role` and value `CUSTOMER`.
 
 **Back to IdP:**
 - Create a new client on realm `IdP_realm` with the UI using Clients > Import Client and import SP SAML XML descriptor.
@@ -60,9 +61,10 @@ On startup, the Python app waits for Keycloak to be ready then creates a new use
 ## Notes
 
 #### Private keys
-RSA private keys were added in exported realms JSON in plain text for convenience.  
-Private keys should be kept secret and not shared in a real environment. As of version 23.0, Keycloak stores private keys in database as an entry in the `component_config` table.  
-For reference:
+You can of course keep RSA auto-generated keys, but custom ones were added on both sides to demonstrate how to use them.  
+RSA private keys are included in the exported realms JSON in plain text for convenience.  
+Private keys should be kept secret and not be shared in a real environment. As of version 23.0, Keycloak stores private keys in the database as entries in the `component_config` table.    
+For reference:  
 ```sql
 SELECT * FROM component C
 JOIN component_config CC ON C.id = CC.component_id
@@ -71,13 +73,14 @@ AND CC.name = 'privateKey'
 ```
 
 #### SP Authentication Flow
-User is redirected automatically to IdP for authentication using `kc_idp_hint=saml` query parameter.  
-Otherwise, this could be achieved by setting SAML IdP as the only required step in the browser authentication flow. (Authentication > Flows > `browser`)
+A custom SAML_IDP_FLOW authentication flow is used to ensure that user connections go through the IdP as the only option, without any prompt.  
+Alternatively, this can be achieved by using the kc_idp_hint=SAML_IDP query parameter in the first auth redirect request made by the frontend.  
 
 #### User Creation
-User is dynamically created on the SP without prompting the user to fill a form. The persistent ID provided by IdP is used as the username and thus next time the user logs in, the same account is used.
-If needed, more information could be added to the IdP response and mapped to the user attributes on the SP such as email, first name, etc.
-Roles are already provided by the IdP but for the demo purpose, a role (`CUSTOMER`) is hardcoded on the SP.
+Users are dynamically created on the SP without prompting the user to fill out a form. The persistent ID provided by the IdP is used as the username, so when the user logs in again, the same account is used.  
+The username format is determined by the NameIDFormat displayed in both SAML entities descriptors. If multiple NameIDFormat options are available, as in this case, the IdP selects its preferred option, and Keycloak implicitly chooses the persistent format. This can be overridden in the client config on the IdP.  
+If needed, additional information can be added to the IdP response and mapped to user attributes on the SP, such as email, first name, etc.  
+Roles are provided by the IdP, but for demo purposes, a role (`CUSTOMER`) is hardcoded on the SP.  
 
 ## How to run
 

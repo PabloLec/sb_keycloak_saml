@@ -661,7 +661,7 @@
       "clientAuthenticatorType": "client-secret",
       "secret": "**********",
       "redirectUris": [
-        "http://localhost:8081/realms/SP_realm/broker/saml/endpoint"
+        "http://localhost:8081/realms/SP_realm/broker/SAML_IDP/endpoint"
       ],
       "webOrigins": [
         "http://localhost:8081"
@@ -678,10 +678,10 @@
       "protocol": "saml",
       "attributes": {
         "client.secret.creation.time": "1701510401",
-        "saml_single_logout_service_url_post": "http://localhost:8081/realms/SP_realm/broker/saml/endpoint",
+        "saml_single_logout_service_url_post": "http://localhost:8081/realms/SP_realm/broker/SAML_IDP/endpoint",
         "saml.force.post.binding": "true",
         "saml.encrypt": "false",
-        "saml_assertion_consumer_url_post": "http://localhost:8081/realms/SP_realm/broker/saml/endpoint",
+        "saml_assertion_consumer_url_post": "http://localhost:8081/realms/SP_realm/broker/SAML_IDP/endpoint",
         "saml.server.signature": "true",
         "saml.server.signature.keyinfo.ext": "false",
         "saml.signing.certificate": "MIICnzCCAYcCBgGMKefosDANBgkqhkiG9w0BAQsFADATMREwDwYDVQQDDAhTUF9yZWFsbTAeFw0yMzEyMDIwOTQwMTNaFw0zMzEyMDIwOTQxNTNaMBMxETAPBgNVBAMMCFNQX3JlYWxtMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2pdcIooU2Xwa3HSgpGr2Jyh4+o/Nc4B8O+jWjtrVnmfyyNp1M1aFqFxkW9Bmx57Cq6ZDGRSnyHeDjtjuTfRlDKFE8Ti2hxNeZe0jLekTMj6UsbWtlBNh6M+vjR4a/SoXrx78PX2YSxAuTAvEcWaGP08MvRbt28j+4U+8qI/Nompc7MKpV/J5muQwpyqMkAArPIu6iMIfp8WKgxQZ21AIF3W83hsR6ftUvsM3mcJF3/smRFItPqeAt1AJZXtfUdSHWEGpbPBEhZCerf86HjGObT5V0icldpbbVtcTApOaB2JrUNrezQL5K5AOSL2iHROHI4d+tPDkwf5ZuoaZfpX6ywIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQBwKjk4+G5ggEimQ5J4tzSnGRcu4WncGolN0XsK34RCaMS7UNpDrNo/PKtcv0W4YvJO0PFwpF+Zkp4HUvSycEgwcLTiPpUrVOfVxVSUMcX2vT9EtPPwNj1x33hPiGuY27nj1x63GrlwHTi8/Imir07HxROmY3eMkY5Y9v7G3DipB7b0BcF5xEKyxCyJFBr89e5dUeCQrNveG04bg8twqEX+rLTTJ7s6TwjWCFRohj3OFlT8ZUDgPDS/yDpRsrcw2bpWqvXhlzxP7FzuK1Aw6UTigXA0dnkZ5BAROGznrMHFiHy7UrgWSnE/lrkzec0oU572Sg0gTkrdhz5DcuCaIdyh",

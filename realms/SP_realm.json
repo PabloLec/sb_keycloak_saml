@@ -717,7 +717,9 @@
         "oauth2.device.authorization.grant.enabled": "false",
         "backchannel.logout.revoke.offline.tokens": "false"
       },
-      "authenticationFlowBindingOverrides": {},
+      "authenticationFlowBindingOverrides": {
+        "browser": "26be8644-6515-494c-b2de-cd2457c5bdf6"
+      },
       "fullScopeAllowed": true,
       "nodeReRegistrationTimeout": -1,
       "defaultClientScopes": [
@@ -1383,9 +1385,9 @@
   "adminEventsDetailsEnabled": false,
   "identityProviders": [
     {
-      "alias": "saml",
-      "displayName": "",
-      "internalId": "05c2ecd1-d23c-4d5d-b4b6-0a60374bd807",
+      "alias": "SAML_IDP",
+      "displayName": "SAML IdP",
+      "internalId": "2b9712c5-d39a-46e9-b78a-6ca476e1d296",
       "providerId": "saml",
       "enabled": true,
       "updateProfileFirstLoginMode": "on",
@@ -1397,8 +1399,8 @@
       "firstBrokerLoginFlowAlias": "first broker login",
       "config": {
         "postBindingLogout": "true",
-        "postBindingResponse": "true",
         "singleLogoutServiceUrl": "http://localhost:8082/realms/IdP_realm/protocol/saml",
+        "postBindingResponse": "true",
         "backchannelSupported": "false",
         "xmlSigKeyInfoKeyNameTransformer": "KEY_ID",
         "idpEntityId": "http://localhost:8082/realms/IdP_realm",
@@ -1413,8 +1415,8 @@
         "nameIDPolicyFormat": "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent",
         "entityId": "http://localhost:8081/realms/SP_realm",
         "signSpMetadata": "false",
-        "signatureAlgorithm": "RSA_SHA256",
         "wantAssertionsEncrypted": "false",
+        "signatureAlgorithm": "RSA_SHA256",
         "wantAssertionsSigned": "false",
         "postBindingAuthnRequest": "true",
         "forceAuthn": "false",
@@ -1428,7 +1430,7 @@
     {
       "id": "e449beec-ab2d-400a-b82f-29d3bcb3fdab",
       "name": "CUSTOMER role setter",
-      "identityProviderAlias": "saml",
+      "identityProviderAlias": "SAML_IDP",
       "identityProviderMapper": "oidc-hardcoded-role-idp-mapper",
       "config": {
         "syncMode": "INHERIT",
@@ -1637,6 +1639,25 @@
           "priority": 20,
           "autheticatorFlow": true,
           "flowAlias": "Verify Existing Account by Re-authentication",
+          "userSetupAllowed": false
+        }
+      ]
+    },
+    {
+      "id": "26be8644-6515-494c-b2de-cd2457c5bdf6",
+      "alias": "SAML_IDP_FLOW",
+      "description": "",
+      "providerId": "basic-flow",
+      "topLevel": true,
+      "builtIn": false,
+      "authenticationExecutions": [
+        {
+          "authenticatorConfig": "SAML_IDP_FLOW_CONFIG",
+          "authenticator": "identity-provider-redirector",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 0,
+          "autheticatorFlow": false,
           "userSetupAllowed": false
         }
       ]
@@ -2129,6 +2150,13 @@
     }
   ],
   "authenticatorConfig": [
+    {
+      "id": "9002f175-94b4-41d7-8c04-77d97536b42e",
+      "alias": "SAML_IDP_FLOW_CONFIG",
+      "config": {
+        "defaultProvider": "SAML_IDP"
+      }
+    },
     {
       "id": "6e542ccc-25d9-4c08-928d-f77df354319e",
       "alias": "create unique user config",
