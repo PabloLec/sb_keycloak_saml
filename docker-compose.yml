@@ -10,7 +10,7 @@ services:
     command: "-p 5432"
 
   keycloak-sp:
-    image: quay.io/keycloak/keycloak:23.0
+    image: quay.io/keycloak/keycloak:25.0
     container_name: keycloak-sp
     environment:
       KEYCLOAK_ADMIN: admin
@@ -22,6 +22,7 @@ services:
       KC_TRANSACTION_XA_ENABLED: "false"
       KC_HTTP_PORT: 8081
       KC_HTTPS_PORT: 8443
+      KC_HTTP_MANAGEMENT_PORT: 9000
       KC_LOG_LEVEL: "INFO,org.keycloak.saml:DEBUG"
     network_mode: host
     command: [
@@ -45,7 +46,7 @@ services:
     command: "-p 5433"
 
   keycloak-idp:
-    image: quay.io/keycloak/keycloak:23.0
+    image: quay.io/keycloak/keycloak:25.0
     container_name: keycloak-idp
     environment:
       KEYCLOAK_ADMIN: admin
@@ -57,6 +58,7 @@ services:
       KC_TRANSACTION_XA_ENABLED: "false"
       KC_HTTP_PORT: 8082
       KC_HTTPS_PORT: 8444
+      KC_HTTP_MANAGEMENT_PORT: 9001
       KC_LOG_LEVEL: "INFO,org.keycloak.saml:DEBUG"
     network_mode: host
     command: [

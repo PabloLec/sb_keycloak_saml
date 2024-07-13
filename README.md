@@ -63,7 +63,7 @@ On startup, the Python app waits for Keycloak to be ready then creates a new use
 #### Private keys
 You can of course keep RSA auto-generated keys, but custom ones were added on both sides to demonstrate how to use them.  
 RSA private keys are included in the exported realms JSON in plain text for convenience.  
-Private keys should be kept secret and not be shared in a real environment. As of version 23.0, Keycloak stores private keys in the database as entries in the `component_config` table.    
+Private keys should be kept secret and not be shared in a real environment. As of version 25.0, Keycloak stores private keys in the database as entries in the `component_config` table.    
 For reference:  
 ```sql
 SELECT * FROM component C
