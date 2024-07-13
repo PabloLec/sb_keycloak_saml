@@ -22,7 +22,7 @@ services:
       KC_TRANSACTION_XA_ENABLED: "false"
       KC_HTTP_PORT: 8081
       KC_HTTPS_PORT: 8443
-      KC_LOG_LEVEL: DEBUG
+      KC_LOG_LEVEL: "INFO,org.keycloak.saml:DEBUG"
     network_mode: host
     command: [
       "start-dev",
@@ -57,7 +57,7 @@ services:
       KC_TRANSACTION_XA_ENABLED: "false"
       KC_HTTP_PORT: 8082
       KC_HTTPS_PORT: 8444
-      KC_LOG_LEVEL: DEBUG
+      KC_LOG_LEVEL: "INFO,org.keycloak.saml:DEBUG"
     network_mode: host
     command: [
       "start-dev",
