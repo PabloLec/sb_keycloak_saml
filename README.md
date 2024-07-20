@@ -101,7 +101,7 @@ A custom SAML_IDP_FLOW authentication flow is used to ensure that user connectio
 Alternatively, this can be achieved by using the kc_idp_hint=IDP_SAML query parameter in the first auth redirect request made by the FRONTEND_CLIENT.  
 
 #### User Creation
-Users are dynamically created on the SP without prompting the user to fill out a form. The persistent ID provided by the IdP is used as the username, so when the user logs in again, the same account is used.  
+Users are dynamically created on the SP without prompting the user to fill out a form. The email provided by the IdP is used as the username, so when the user logs in again, the same account is used.  
 The username format is determined by the NameIDFormat displayed in both SAML entities descriptors. If multiple NameIDFormat options are available, as in this case, the IdP selects its preferred option, and Keycloak implicitly chooses the persistent format. This can be overridden in the client config on the IdP.  
 If needed, additional information can be added to the IdP response and mapped to user attributes on the SP, such as email, first name, etc.  
 Roles are provided by the IdP, but for demo purposes, a role (`CUSTOMER`) is hardcoded on the SP.  
@@ -125,6 +125,6 @@ Roles are provided by the IdP, but for demo purposes, a role (`CUSTOMER`) is har
 ### IdP-Initiated
 
 1. Go to http://localhost:8082/realms/IdP_realm/protocol/saml/clients/idp-initiated (IdP Initiated SSO URL)
-2. Login with username `john` and password `john`.
-3. You should be redirected to the SP which will create a new user account.
-4. You should be redirected to the demo app and see a welcome message.
+2. Login with username `john` and password `john`
+3. You should be redirected to the SP which will create a new user account
+4. You should be redirected to the demo app and see a welcome message
