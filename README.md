@@ -27,7 +27,7 @@ sequenceDiagram
 - Keycloak SP runs on `http://localhost:8081`
 - Keycloak IdP runs on `http://localhost:8082`
 - Demo app runs on `http://localhost:8083`
-- SP SAML broker descriptor can be obtained with `http://localhost:8081/realms/SP_realm/broker/IDP_SAML/endpoint/descriptor`
+- SP SAML broker descriptor can be obtained with `http://localhost:8081/realms/SP_realm/broker/IDP_SAML_SP_INITIATED/endpoint/descriptor`
 - IdP SAML descriptor can be obtained with `http://localhost:8082/realms/IdP_realm/protocol/saml/descriptor`
 
 ## Pre-prepared Steps
@@ -41,13 +41,13 @@ sequenceDiagram
 - Create client `app` on realm `internal` for an example Python app with `Client authentication` on (for client ID / client secret).
 - Create realm `SP_realm`.
 - On realm `SP_realm`, go to Realm Settings > Keys > Providers. Disable `rsa-generated` (or lower its priority) and click on Add Provider > rsa then add a provider with private key (see `keys/sp_private_key.pem`).
-- Create an OpenID Connect client on realm `SP_realm` with client id `FRONTEND_CLIENT` setting `Root URL`, `Home URL` and `Valid redirect URIs` to `http://localhost:8083/`.
-- Add SAML identity provider with alias `IDP_SAML` on `SP_realm` with `Service provider entity ID` set to `SP_SAML` and `SAML entity descriptor` set to `http://localhost:8082/realms/IdP_realm/protocol/saml/descriptor`.
-- Create a new authentication flow with name `SAML_IDP_FLOW` in Authentication > Create flow. Add an execution, choose `Identity Provider Redirector`, set it as required and click on the cog icon to edit its config and set `IDP_SAML` as default identity provider.
+- Create an OpenID Connect client on realm `SP_realm` with client id `OIDC_FRONTEND_CLIENT` setting `Root URL`, `Home URL` and `Valid redirect URIs` to `http://localhost:8083/`.
+- Add SAML identity provider with alias `IDP_SAML_SP_INITIATED` on `SP_realm` with `Service provider entity ID` set to `SP_SAML_IDP_INITIATED` and `SAML entity descriptor` set to `http://localhost:8082/realms/IdP_realm/protocol/saml/descriptor`.
+- Create a new authentication flow with name `SAML_IDP_FLOW` in Authentication > Create flow. Add an execution, choose `Identity Provider Redirector`, set it as required and click on the cog icon to edit its config and set `IDP_SAML_SP_INITIATED` as default identity provider.
 - Go back to client `FRONTEND_CLIENT`, got to Advanced section and set `SAML_IDP_FLOW` as browser flow in Authentication flow overrides.
 - To dynamically create users on the SP without prompting the user to fill a form, go to `Authentication` create a new flow `CUSTOM_FIRST_BROKER_LOGIN_FLOW`, add two steps `Create User If Unique` and `Automatically set existing user` and set both as `Alternative`. Now go back to your newly added Identity Provider and set `CUSTOM_FIRST_BROKER_LOGIN_FLOW` as `First login flow override`.
 - Go to Realm roles and create a role named `CUSTOMER`.
-- Go to Identity Providers > `IDP_SAML` > Mappers and create a new mapper with type `Hardcoded Role` and value `CUSTOMER`.
+- Go to Identity Providers > `IDP_SAML_SP_INITIATED` > Mappers and create a new mapper with type `Hardcoded Role` and value `CUSTOMER`.
 
 **Back to IdP:**
 - Create a new client on realm `IdP_realm` with the UI using Clients > Import Client and import SP SAML XML descriptor.
@@ -63,9 +63,9 @@ You will find in the project a functional example of the IdP-Initiated flow resu
 
 **On the SP side:**
 - I had to create a second IdP with a different `Service provider entity ID` (here `SP_SAML_IDP_INITIATED`) because Keycloak, as an IdP, does not allow creating two SAML clients with the same entity ID. This is solely a constraint due to the demo requirements. The IdP is completely identical to the first one.
-- I also had to duplicate the OAuth2 client for demonstration purposes. You'll find the client `FRONTEND_CLIENT_IDP_INITIATED`, which is identical to `FRONTEND_CLIENT`, the only difference being that the `Browser Flow` has no override. Here we do not want to force the user to go through the IdP since they are already coming from it.
-- Create a SAML client `IDP_INITIATED_SAML_CLIENT`, set `idp-initiated` as the value for `IDP-Initiated SSO URL name` so that KC declares an endpoint `http://localhost:8081/realms/SP_realm/broker/IDP_SAML_IDP_INITIATED/endpoint/clients/idp-initiated` which will be able to process the SAML assertions from the IdP.
-- On this client, disable `Force POST binding` and, in `Advanced`, set the `Assertion Consumer Service Redirect Binding URL` to `http://localhost:8081/realms/SP_realm/protocol/openid-connect/auth?client_id=FRONTEND_CLIENT_IDP_INITIATED&response_type=code`. The goal is to redirect (rather than POST, which will not be supported) to the OAuth2 login page after the user session has been opened via SAML auth.
+- I also had to duplicate the OAuth2 client for demonstration purposes. You'll find the client `OIDC_FRONTEND_CLIENT_IDP_INITIATED`, which is identical to `OIDC_FRONTEND_CLIENT`, the only difference being that the `Browser Flow` has no override. Here we do not want to force the user to go through the IdP since they are already coming from it.
+- Create a SAML client `SAML_CLIENT_IDP_INITIATED`, set `idp-initiated` as the value for `IDP-Initiated SSO URL name` so that KC declares an endpoint `http://localhost:8081/realms/SP_realm/broker/IDP_SAML_IDP_INITIATED/endpoint/clients/idp-initiated` which will be able to process the SAML assertions from the IdP.
+- On this client, disable `Force POST binding` and, in `Advanced`, set the `Assertion Consumer Service Redirect Binding URL` to `http://localhost:8081/realms/SP_realm/protocol/openid-connect/auth?client_id=OIDC_FRONTEND_CLIENT_IDP_INITIATED&response_type=code`. The goal is to redirect (rather than POST, which will not be supported) to the OAuth2 login page after the user session has been opened via SAML auth.
 
 **On the IdP side:**
 - Create a new SAML client with the correct Client ID/Entity ID (here `SP_SAML_IDP_INITIATED`) and again `idp-initiated` as the value for `IDP-Initiated SSO URL name`.

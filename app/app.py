@@ -5,7 +5,7 @@ from auth import idp_initiated_keycloak_auth, keycloak_auth
 from keycloak_service import create_user_in_idp
 
 app = FastAPI()
-LOGIN_URL = "http://localhost:8081/realms/SP_realm/protocol/openid-connect/auth?client_id=FRONTEND_CLIENT&response_type=code"
+LOGIN_URL = "http://localhost:8081/realms/SP_realm/protocol/openid-connect/auth?client_id=OIDC_FRONTEND_CLIENT&response_type=code"
 
 
 @app.get("/")

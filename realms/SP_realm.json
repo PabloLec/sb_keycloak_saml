@@ -105,7 +105,7 @@
       }
     ],
     "client": {
-      "IDP_INITIATED_SAML_CLIENT": [],
+      "SAML_CLIENT_IDP_INITIATED": [],
       "realm-management": [
         {
           "id": "cee677ad-afed-441c-be19-5e796f572695",
@@ -420,7 +420,7 @@
           "attributes": {}
         }
       ],
-      "FRONTEND_CLIENT": []
+      "OIDC_FRONTEND_CLIENT": []
     }
   },
   "groups": [
@@ -688,7 +688,7 @@
     },
     {
       "id": "3d34ab6f-baaf-4bcb-bc05-f6ec77022b96",
-      "clientId": "FRONTEND_CLIENT",
+      "clientId": "OIDC_FRONTEND_CLIENT",
       "name": "",
       "description": "",
       "rootUrl": "http://localhost:8083/",
@@ -744,7 +744,7 @@
     },
     {
       "id": "cf779980-8a3d-40a8-9e62-1bcdaddf46f6",
-      "clientId": "IDP_INITIATED_SAML_CLIENT",
+      "clientId": "SAML_CLIENT_IDP_INITIATED",
       "name": "",
       "description": "",
       "rootUrl": "",
@@ -755,7 +755,7 @@
       "alwaysDisplayInConsole": false,
       "clientAuthenticatorType": "client-secret",
       "redirectUris": [
-        "http://localhost:8081/realms/SP_realm/protocol/openid-connect/auth?client_id=FRONTEND_CLIENT_IDP_INITIATED&response_type=code"
+        "http://localhost:8081/realms/SP_realm/protocol/openid-connect/auth?client_id=OIDC_FRONTEND_CLIENT_IDP_INITIATED&response_type=code"
       ],
       "webOrigins": [],
       "notBefore": 0,
@@ -770,7 +770,7 @@
       "protocol": "saml",
       "attributes": {
         "saml.assertion.signature": "false",
-        "saml_assertion_consumer_url_redirect": "http://localhost:8081/realms/SP_realm/protocol/openid-connect/auth?client_id=FRONTEND_CLIENT_IDP_INITIATED&response_type=code",
+        "saml_assertion_consumer_url_redirect": "http://localhost:8081/realms/SP_realm/protocol/openid-connect/auth?client_id=OIDC_FRONTEND_CLIENT_IDP_INITIATED&response_type=code",
         "saml.force.post.binding": "false",
         "saml.server.signature": "true",
         "saml_idp_initiated_sso_url_name": "idp-initiated",
@@ -800,7 +800,7 @@
     },
     {
       "id": "88bc417b-0856-4c50-b4ae-0a6493dc70bd",
-      "clientId": "FRONTEND_CLIENT_IDP_INITIATED",
+      "clientId": "OIDC_FRONTEND_CLIENT_IDP_INITIATED",
       "name": "",
       "description": "",
       "rootUrl": "http://localhost:8083/idp-initiated",
@@ -1540,7 +1540,7 @@
   "adminEventsDetailsEnabled": false,
   "identityProviders": [
     {
-      "alias": "IDP_SAML",
+      "alias": "IDP_SAML_SP_INITIATED",
       "internalId": "2b9712c5-d39a-46e9-b78a-6ca476e1d296",
       "providerId": "saml",
       "enabled": true,
@@ -1572,7 +1572,7 @@
         "hideOnLoginPage": "false",
         "signingCertificate": "MIICoTCCAYkCBgGMKeZvUzANBgkqhkiG9w0BAQsFADAUMRIwEAYDVQQDDAlJZFBfcmVhbG0wHhcNMjMxMjAyMDkzODM2WhcNMzMxMjAyMDk0MDE2WjAUMRIwEAYDVQQDDAlJZFBfcmVhbG0wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDogLVpzIrBMQklGOC/5dvcxOKQnxg9fM/R1H3u1+BrYhWzYVH4ikxX9yEvp/6bCsbgh9DkCgLrHHENbYjSYG7+1d8ROFtG6NEhWGgIbTLTH4Nc9rxQ2sw3PzEcFMVHE0YEByINYpXFbotsFXvrrxYXcHt3f5dR45kD5k2XXSckPkzGAw4o2gp6WrnNxVtIvgi/EP6Sw3F9jkBKV0QekV0rGk0NFZLW+flmqLfdQxJ0PU/jYIel9RHeTqo3VQaIXehqTvXRpbe3yYr5KKd9FfuxPS/sxcfoEjsDBDK2BFALL+MCZn+Z+BRZsVZ3NDzfOvzjxIlUjn/Fele4j7nUvql1AgMBAAEwDQYJKoZIhvcNAQELBQADggEBAMkAOBlX0s0VsMMeHQEbYHSLCEe8QpwPzWo8YGsyuGWMDDZLbdmvfNjFR7SKkhCJpdAkbgc9+GZiUlZqeKzQnV1+OxISPK+BNwWot4MY6PCKSrI8naZyCTXwXgG5YoAy9uBEethdmVh0rQ+GTUK97cy8EU0dbI3ldkuCNE8AVhIsBETwY7z/HPxyo2h5DBe3iyDVPZu6iCzXYz9MW1OF+tko4gPfayBqWDKB6XJqiFbB4zkuL7iXkw/Jz3Vwfu1QVZ8Lb3GZf+7ctKOjfb6XLOpXeW+lOfxjxZMpsgLjxofEHWhyko5VjstzE4xWC7QUkxNJVPR8eVTA++BYZJ3bzos=",
         "nameIDPolicyFormat": "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
-        "entityId": "SP_SAML",
+        "entityId": "SP_SAML_SP_INITIATED",
         "signSpMetadata": "false",
         "signatureAlgorithm": "RSA_SHA256",
         "wantAssertionsEncrypted": "false",
@@ -1640,7 +1640,7 @@
     {
       "id": "5719e114-bc10-4d69-81a0-cef7dfdcbc85",
       "name": "CUSTOMER role setter",
-      "identityProviderAlias": "IDP_SAML",
+      "identityProviderAlias": "IDP_SAML_SP_INITIATED",
       "identityProviderMapper": "oidc-hardcoded-role-idp-mapper",
       "config": {
         "syncMode": "INHERIT",
@@ -2417,7 +2417,7 @@
       "id": "9002f175-94b4-41d7-8c04-77d97536b42e",
       "alias": "SAML_IDP_FLOW_CONFIG",
       "config": {
-        "defaultProvider": "IDP_SAML"
+        "defaultProvider": "IDP_SAML_SP_INITIATED"
       }
     },
     {
