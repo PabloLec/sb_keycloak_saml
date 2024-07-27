@@ -12,9 +12,11 @@ KEYCLOAK_OPENID = create_keycloak_openid_instance()
 def keycloak_auth(request: Request):
     return handle_keycloak_auth(request, "OIDC_FRONTEND_CLIENT")
 
-
 def idp_initiated_keycloak_auth(request: Request):
     return handle_keycloak_auth(request, "OIDC_FRONTEND_CLIENT_IDP_INITIATED")
+
+def hybrid_keycloak_auth(request: Request):
+    return handle_keycloak_auth(request, "OIDC_FRONTEND_CLIENT_HYBRID_SP_TO_IDP_INITIATED")
 
 
 def handle_keycloak_auth(request: Request, client_id: str) -> Optional[dict]:

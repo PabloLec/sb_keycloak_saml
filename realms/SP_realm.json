@@ -743,6 +743,62 @@
       ]
     },
     {
+      "id": "3d34ab6f-baaf-4bcb-bc05-f6ec77022b77",
+      "clientId": "OIDC_FRONTEND_CLIENT_HYBRID_SP_TO_IDP_INITIATED",
+      "name": "",
+      "description": "",
+      "rootUrl": "http://localhost:8083/",
+      "adminUrl": "",
+      "baseUrl": "http://localhost:8083/",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "redirectUris": [
+        "http://localhost:8083/hybrid"
+      ],
+      "webOrigins": [
+        "/*"
+      ],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "publicClient": true,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "oidc.ciba.grant.enabled": "false",
+        "backchannel.logout.session.required": "true",
+        "post.logout.redirect.uris": "+",
+        "display.on.consent.screen": "false",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+      "authenticationFlowBindingOverrides": {
+        "browser": "26be8644-6515-494c-b2de-cd2457c5bd77"
+      },
+      "fullScopeAllowed": true,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "basic",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+      ]
+    },
+    {
       "id": "cf779980-8a3d-40a8-9e62-1bcdaddf46f6",
       "clientId": "SAML_CLIENT_IDP_INITIATED",
       "name": "",
@@ -1544,7 +1600,7 @@
       "internalId": "2b9712c5-d39a-46e9-b78a-6ca476e1d296",
       "providerId": "saml",
       "enabled": true,
-      "updateProfileFirstLoginMode": "on",
+      "updateProfileFirstLoginMode": "off",
       "trustEmail": false,
       "storeToken": false,
       "addReadTokenRoleOnCreate": false,
@@ -1592,7 +1648,7 @@
       "internalId": "d081ce86-9476-43d3-bf00-9f8eb03b67e0",
       "providerId": "saml",
       "enabled": true,
-      "updateProfileFirstLoginMode": "on",
+      "updateProfileFirstLoginMode": "off",
       "trustEmail": false,
       "storeToken": false,
       "addReadTokenRoleOnCreate": false,
@@ -1634,6 +1690,53 @@
         "addExtensionsElementWithKeyInfo": "false",
         "principalType": "SUBJECT"
       }
+    },
+    {
+      "alias": "IDP_SAML_HYBRID_SP_TO_IDP_INITIATED",
+      "internalId": "2b9712c5-d39a-46e9-b78a-6ca476e77296",
+      "providerId": "saml",
+      "enabled": true,
+      "updateProfileFirstLoginMode": "off",
+      "trustEmail": false,
+      "storeToken": false,
+      "addReadTokenRoleOnCreate": false,
+      "authenticateByDefault": false,
+      "linkOnly": false,
+      "firstBrokerLoginFlowAlias": "CUSTOM_FIRST_BROKER_LOGIN_FLOW",
+      "config": {
+        "postBindingLogout": "true",
+        "postBindingResponse": "true",
+        "singleLogoutServiceUrl": "http://localhost:8082/realms/IdP_realm/protocol/saml",
+        "backchannelSupported": "false",
+        "caseSensitiveOriginalUsername": "false",
+        "xmlSigKeyInfoKeyNameTransformer": "KEY_ID",
+        "idpEntityId": "http://localhost:8082/realms/IdP_realm",
+        "useMetadataDescriptorUrl": "false",
+        "loginHint": "false",
+        "allowCreate": "true",
+        "enabledFromMetadata": "true",
+        "syncMode": "LEGACY",
+        "authnContextComparisonType": "exact",
+        "singleSignOnServiceUrl": "http://localhost:8082/realms/IdP_realm/protocol/saml",
+        "wantAuthnRequestsSigned": "true",
+        "allowedClockSkew": "0",
+        "validateSignature": "true",
+        "hideOnLoginPage": "false",
+        "signingCertificate": "MIICoTCCAYkCBgGMKeZvUzANBgkqhkiG9w0BAQsFADAUMRIwEAYDVQQDDAlJZFBfcmVhbG0wHhcNMjMxMjAyMDkzODM2WhcNMzMxMjAyMDk0MDE2WjAUMRIwEAYDVQQDDAlJZFBfcmVhbG0wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDogLVpzIrBMQklGOC/5dvcxOKQnxg9fM/R1H3u1+BrYhWzYVH4ikxX9yEvp/6bCsbgh9DkCgLrHHENbYjSYG7+1d8ROFtG6NEhWGgIbTLTH4Nc9rxQ2sw3PzEcFMVHE0YEByINYpXFbotsFXvrrxYXcHt3f5dR45kD5k2XXSckPkzGAw4o2gp6WrnNxVtIvgi/EP6Sw3F9jkBKV0QekV0rGk0NFZLW+flmqLfdQxJ0PU/jYIel9RHeTqo3VQaIXehqTvXRpbe3yYr5KKd9FfuxPS/sxcfoEjsDBDK2BFALL+MCZn+Z+BRZsVZ3NDzfOvzjxIlUjn/Fele4j7nUvql1AgMBAAEwDQYJKoZIhvcNAQELBQADggEBAMkAOBlX0s0VsMMeHQEbYHSLCEe8QpwPzWo8YGsyuGWMDDZLbdmvfNjFR7SKkhCJpdAkbgc9+GZiUlZqeKzQnV1+OxISPK+BNwWot4MY6PCKSrI8naZyCTXwXgG5YoAy9uBEethdmVh0rQ+GTUK97cy8EU0dbI3ldkuCNE8AVhIsBETwY7z/HPxyo2h5DBe3iyDVPZu6iCzXYz9MW1OF+tko4gPfayBqWDKB6XJqiFbB4zkuL7iXkw/Jz3Vwfu1QVZ8Lb3GZf+7ctKOjfb6XLOpXeW+lOfxjxZMpsgLjxofEHWhyko5VjstzE4xWC7QUkxNJVPR8eVTA++BYZJ3bzos=",
+        "nameIDPolicyFormat": "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress",
+        "entityId": "SP_SAML_HYBRID_SP_TO_IDP_INITIATED",
+        "signSpMetadata": "false",
+        "signatureAlgorithm": "RSA_SHA256",
+        "wantAssertionsEncrypted": "false",
+        "sendClientIdOnLogout": "false",
+        "wantAssertionsSigned": "false",
+        "sendIdTokenOnLogout": "true",
+        "postBindingAuthnRequest": "true",
+        "forceAuthn": "false",
+        "attributeConsumingServiceIndex": "0",
+        "addExtensionsElementWithKeyInfo": "false",
+        "principalType": "Subject NameID"
+      }
     }
   ],
   "identityProviderMappers": [
@@ -1651,6 +1754,16 @@
       "id": "5719e114-bc10-4d69-81a0-cef7dfdcbc86",
       "name": "CUSTOMER role setter",
       "identityProviderAlias": "IDP_SAML_IDP_INITIATED",
+      "identityProviderMapper": "oidc-hardcoded-role-idp-mapper",
+      "config": {
+        "syncMode": "INHERIT",
+        "role": "CUSTOMER"
+      }
+    },
+    {
+      "id": "5719e114-bc10-4d69-81a0-cef7dfdcbc86",
+      "name": "CUSTOMER role setter",
+      "identityProviderAlias": "IDP_SAML_HYBRID_SP_TO_IDP_INITIATED",
       "identityProviderMapper": "oidc-hardcoded-role-idp-mapper",
       "config": {
         "syncMode": "INHERIT",
@@ -2065,6 +2178,25 @@
       ]
     },
     {
+      "id": "26be8644-6515-494c-b2de-cd2457c5bd77",
+      "alias": "SAML_IDP_FLOW_HYBRID_SP_TO_IDP_INITIATED",
+      "description": "",
+      "providerId": "basic-flow",
+      "topLevel": true,
+      "builtIn": false,
+      "authenticationExecutions": [
+        {
+          "authenticatorConfig": "SAML_IDP_FLOW_HYBRID_SP_TO_IDP_INITIATED_CONFIG",
+          "authenticator": "identity-provider-redirector",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 0,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        }
+      ]
+    },
+    {
       "id": "5affe926-e5f5-476f-9c31-3e14485c7d3f",
       "alias": "User creation or linking",
       "description": "Flow for the existing/non-existing user alternatives",
@@ -2418,6 +2550,13 @@
       "alias": "SAML_IDP_FLOW_CONFIG",
       "config": {
         "defaultProvider": "IDP_SAML_SP_INITIATED"
+      }
+    },
+    {
+      "id": "9002f175-94b4-41d7-8c04-77d97536b477",
+      "alias": "SAML_IDP_FLOW_HYBRID_SP_TO_IDP_INITIATED_CONFIG",
+      "config": {
+        "defaultProvider": "IDP_SAML_HYBRID_SP_TO_IDP_INITIATED"
       }
     },
     {

@@ -304,6 +304,7 @@
       "admin-cli": [],
       "account-console": [],
       "SP_SAML_IDP_INITIATED": [],
+      "SP_SAML_HYBRID_SP_TO_IDP_INITIATED": [],
       "broker": [
         {
           "id": "3d46ccce-be31-4e30-8b28-daf3d89f925b",
@@ -860,6 +861,64 @@
         "saml.server.signature": "true",
         "saml.server.signature.keyinfo.ext": "false",
         "saml.signing.certificate": "MIICqTCCAZECBgGQzxaPcjANBgkqhkiG9w0BAQsFADAYMRYwFAYDVQQDDA1pZHAtaW5pdGlhdGVkMB4XDTI0MDcyMDA3Mzk0MFoXDTM0MDcyMDA3NDEyMFowGDEWMBQGA1UEAwwNaWRwLWluaXRpYXRlZDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAOYW2XRgFnJONsmGXoMSOSiGP3cVUwtdUL88dkbXidwZlr5UTuWI/bZCDe0pkS9rkOsQsB1aGqvjJWn8sfJTYUHo902jsow6VPSCdJPG/cgM0APEMXEUT7A/NPwPH1BWN+elUcKRVJSRDfWHiQVfI3Svipcj/9OqIbBOgcJ01lZr2G9ZAvMIjRRL/PMjvQXR1kbm3F++LKKT0oe9wm/6BW+J6WWfOM7lTSAvAslEDi+m72jciBMmLUEXdkAPDXsAz20itwVOhf5nd3jtS90zyOeG9pOrgK/3JErkt7RHZI0RFZxmYfcxh/mZgzwBGU9ZyCNOGW2fs0dC33QMyBeb06MCAwEAATANBgkqhkiG9w0BAQsFAAOCAQEAn2GD0A2pgKJP4T/AOSnrNO2E23+JlewbVMjwUTEBih8LvaqKqvKYVtujL/9wX9rSYTkYH8Yw7Z4MK+kzPClok76dxSG9OM/zC7SfYXJhOXhQSytoJiHPL50bozX4Mx4OV9BXhU3m341v/MMKR20Lt0YdRwzN3OkFze3I5WOi+cQ5L6pVqdhku8F/V6b395cwgk7izgroC949GgVHX2uZC8qFBXWB5YG0X3rLM6pdG+FZ68nukkvCXC7QCDP2AfcmvWqSJyuETECUotiRXRcjzhpjqpv69gWhwnvbXzQUtgN80HRy7mourVAFjOz6VrebMYeyE3Wm51jroiIDawGPEw==",
+        "saml.artifact.binding.identifier": "jvSzDtwERYoel2xqG0wc8PUK2TY=",
+        "saml.artifact.binding": "false",
+        "saml.signature.algorithm": "RSA_SHA256",
+        "saml_force_name_id_format": "false",
+        "saml.client.signature": "true",
+        "saml.authnstatement": "true",
+        "display.on.consent.screen": "false",
+        "saml_name_id_format": "email",
+        "saml.signing.private.key": "MIIEpAIBAAKCAQEA5hbZdGAWck42yYZegxI5KIY/dxVTC11Qvzx2RteJ3BmWvlRO5Yj9tkIN7SmRL2uQ6xCwHVoaq+Mlafyx8lNhQej3TaOyjDpU9IJ0k8b9yAzQA8QxcRRPsD80/A8fUFY356VRwpFUlJEN9YeJBV8jdK+KlyP/06ohsE6BwnTWVmvYb1kC8wiNFEv88yO9BdHWRubcX74sopPSh73Cb/oFb4npZZ84zuVNIC8CyUQOL6bvaNyIEyYtQRd2QA8NewDPbSK3BU6F/md3eO1L3TPI54b2k6uAr/ckSuS3tEdkjREVnGZh9zGH+ZmDPAEZT1nII04ZbZ+zR0LfdAzIF5vTowIDAQABAoIBAAWlrOuiyho/GjAjCKHN6jI47UjWcKXYQfmXmc2OT7djt2PvfMo8bQGyqFXYTdRsnu9uBuyJgBsU5Z+u0I1Ch6IO/jbdHC495kTkCMlxulvVGKvm/lGornYEbx/6nQmjPBcG4zVTzNAiqUWL8Ix9s8iS4GNqQkanJ9GEc8HajUIssoX4kI/0Ktn8racoizTFywVZUdOe1FKMYqdcoALErCnK2EPzZq7mGjuN3gIpQ1faAvQ6WxMVdFNKdT4hsc3nkEbTE58+SXgEuOfOybS7x36pFm81LoNAj7SYAZqAXwm1LcEvXUjL0o7Qc3dAQ7JuYiE490Vzlvn+07BJi+pn1sUCgYEA+Jp2HgbNrlYpm99jFR9Nj6xyVxVA1Y0REGnd572Uaty/5he8kpmTAfXYW6DGvjy0XE/R1ghgnlTtT1OpFj6wyWIVH7O8RSSas8eO7u6GobRqzeXR0E2GzqzN00xbn8qdulHENfGH2hgU0doT+qzd+oFguOZ+EuCIvgHGwyNfTN8CgYEA7O9fG+hfqm+WOK2LR/Wi8iY32tiW+R9sw0VhRGR2KrGBMMZ/eYSI8TfZyUrS223/QiEwXfBEk/n3S/3+r0gwzOytjMN1+DpL8ONP9RSjFw4X7Ru6YUuWnirT77RmEpLUNUZ5/YYA/6ohkxxrLaTHT/aVDBwK4QEjYc5i9AL/Tb0CgYEAnSZnDEwYsN/epZ3ssGl9Shkknk/dECGAa/PARsHclEC/PeA7YCCcgVy7TBCyEYemK8R5TOc2zF+7M64a8OjoMCVEXSntFXgyIvs/K2K00HuQGF/y5c5cLUGnSq62LKiUVDdj5QWtbvxSDOXiQ1ALclNepQNvJtexGQtebfRqRdkCgYEA10AkZMM4XiugCv/G4GoNTfZgmgZZKhxdgA2A71Rhcinu13QODUTV8GcwCUpbw5Pr6ZUjTsRgWRsnirdG8NEh3JpMlOxiOVAk+8RXOK01+VUJcZTWP1wfirQX9NYsQUV5WqkbXLKoJ5zVgcO4ry/bDw9SmzzCuWWCUnHgvhQXAvUCgYAmKBH9IdizC93GnDHMDMZuctpG9+tlYEOctX5id2rb+q2P1e7AYwPaebkkpgihlmqR0lcbQxG6HeynsunyJajhNhyc5t72FpW3XCkcomrReBR4b0WYkP46Fc6qhjMl12Bax+R4POYTxmssgfC7ofNQ0ZxnNwSa7Nr5wq9BhQhBfQ==",
+        "saml.allow.ecp.flow": "false",
+        "saml_signature_canonicalization_method": "http://www.w3.org/2001/10/xml-exc-c14n#",
+        "saml.onetimeuse.condition": "false",
+        "saml.server.signature.keyinfo.xmlSigKeyInfoKeyNameTransformer": "NONE"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": true,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "role_list"
+      ],
+      "optionalClientScopes": []
+    },
+    {
+      "id": "cfec3dc8-cfbd-416c-9f35-a7de067ffe77",
+      "clientId": "SP_SAML_HYBRID_SP_TO_IDP_INITIATED",
+      "name": "",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "http://localhost:8081/realms/SP_realm/broker/SP_SAML_HYBRID_SP_TO_IDP_INITIATED/endpoint/clients/idp-initiated",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "redirectUris": [
+        ""
+      ],
+      "webOrigins": [
+        "http://localhost:8081"
+      ],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "publicClient": true,
+      "frontchannelLogout": true,
+      "protocol": "saml",
+      "attributes": {
+        "saml.assertion.signature": "false",
+        "saml.force.post.binding": "true",
+        "saml.encrypt": "false",
+        "saml_idp_initiated_sso_url_name": "",
+        "saml.server.signature": "true",
+        "saml.server.signature.keyinfo.ext": "false",
+        "saml.signing.certificate": "MIICnzCCAYcCBgGMKefosDANBgkqhkiG9w0BAQsFADATMREwDwYDVQQDDAhTUF9yZWFsbTAeFw0yMzEyMDIwOTQwMTNaFw0zMzEyMDIwOTQxNTNaMBMxETAPBgNVBAMMCFNQX3JlYWxtMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2pdcIooU2Xwa3HSgpGr2Jyh4+o/Nc4B8O+jWjtrVnmfyyNp1M1aFqFxkW9Bmx57Cq6ZDGRSnyHeDjtjuTfRlDKFE8Ti2hxNeZe0jLekTMj6UsbWtlBNh6M+vjR4a/SoXrx78PX2YSxAuTAvEcWaGP08MvRbt28j+4U+8qI/Nompc7MKpV/J5muQwpyqMkAArPIu6iMIfp8WKgxQZ21AIF3W83hsR6ftUvsM3mcJF3/smRFItPqeAt1AJZXtfUdSHWEGpbPBEhZCerf86HjGObT5V0icldpbbVtcTApOaB2JrUNrezQL5K5AOSL2iHROHI4d+tPDkwf5ZuoaZfpX6ywIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQBwKjk4+G5ggEimQ5J4tzSnGRcu4WncGolN0XsK34RCaMS7UNpDrNo/PKtcv0W4YvJO0PFwpF+Zkp4HUvSycEgwcLTiPpUrVOfVxVSUMcX2vT9EtPPwNj1x33hPiGuY27nj1x63GrlwHTi8/Imir07HxROmY3eMkY5Y9v7G3DipB7b0BcF5xEKyxCyJFBr89e5dUeCQrNveG04bg8twqEX+rLTTJ7s6TwjWCFRohj3OFlT8ZUDgPDS/yDpRsrcw2bpWqvXhlzxP7FzuK1Aw6UTigXA0dnkZ5BAROGznrMHFiHy7UrgWSnE/lrkzec0oU572Sg0gTkrdhz5DcuCaIdyh",
         "saml.artifact.binding.identifier": "jvSzDtwERYoel2xqG0wc8PUK2TY=",
         "saml.artifact.binding": "false",
         "saml.signature.algorithm": "RSA_SHA256",

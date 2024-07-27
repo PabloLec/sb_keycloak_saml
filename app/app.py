@@ -1,18 +1,17 @@
 from fastapi import Depends, FastAPI
 from fastapi.responses import RedirectResponse
 
-from auth import idp_initiated_keycloak_auth, keycloak_auth
+from auth import idp_initiated_keycloak_auth, keycloak_auth, hybrid_keycloak_auth
 from keycloak_service import create_user_in_idp
 
 app = FastAPI()
-LOGIN_URL = "http://localhost:8081/realms/SP_realm/protocol/openid-connect/auth?client_id=OIDC_FRONTEND_CLIENT&response_type=code"
 
 
 @app.get("/")
 def protected_route(user=Depends(keycloak_auth)):
     if not user:
         print("User not authenticated in protected_route, redirecting to login")
-        return RedirectResponse(LOGIN_URL)
+        return RedirectResponse("http://localhost:8081/realms/SP_realm/protocol/openid-connect/auth?client_id=OIDC_FRONTEND_CLIENT&response_type=code")
     return authenticated_user_response(user)
 
 
@@ -21,6 +20,14 @@ def idp_initiated_protected_route(user=Depends(idp_initiated_keycloak_auth)):
     if not user:
         print("User not authenticated in idp-initiated_protected_route")
         raise HTTPException(status_code=401, detail="Not authenticated")
+    return authenticated_user_response(user)
+
+
+@app.get("/hybrid")
+def hybrid_protected_route(user=Depends(hybrid_keycloak_auth)):
+    if not user:
+        print("User not authenticated in protected_route, redirecting to login")
+        return RedirectResponse("http://localhost:8081/realms/SP_realm/protocol/openid-connect/auth?client_id=OIDC_FRONTEND_CLIENT_HYBRID_SP_TO_IDP_INITIATED&response_type=code")
     return authenticated_user_response(user)
 
 
