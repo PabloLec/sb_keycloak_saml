@@ -30,7 +30,7 @@ sequenceDiagram
 - SP SAML broker descriptor can be obtained with `http://localhost:8081/realms/SP_realm/broker/IDP_SAML_SP_INITIATED/endpoint/descriptor`
 - IdP SAML descriptor can be obtained with `http://localhost:8082/realms/IdP_realm/protocol/saml/descriptor`
 
-## Pre-prepared Steps
+## SP-initiated flow setup
 
 **On IdP:**
 - Create realm `IdP_realm`.
@@ -42,9 +42,9 @@ sequenceDiagram
 - Create realm `SP_realm`.
 - On realm `SP_realm`, go to Realm Settings > Keys > Providers. Disable `rsa-generated` (or lower its priority) and click on Add Provider > rsa then add a provider with private key (see `keys/sp_private_key.pem`).
 - Create an OpenID Connect client on realm `SP_realm` with client id `OIDC_FRONTEND_CLIENT` setting `Root URL`, `Home URL` and `Valid redirect URIs` to `http://localhost:8083/`.
-- Add SAML identity provider with alias `IDP_SAML_SP_INITIATED` on `SP_realm` with `Service provider entity ID` set to `SP_SAML_IDP_INITIATED` and `SAML entity descriptor` set to `http://localhost:8082/realms/IdP_realm/protocol/saml/descriptor`.
+- Add SAML identity provider with alias `IDP_SAML_SP_INITIATED` on `SP_realm` with `Service provider entity ID` set to `SP_SAML_SP_INITIATED` and `SAML entity descriptor` set to `http://localhost:8082/realms/IdP_realm/protocol/saml/descriptor`.
 - Create a new authentication flow with name `SAML_IDP_FLOW` in Authentication > Create flow. Add an execution, choose `Identity Provider Redirector`, set it as required and click on the cog icon to edit its config and set `IDP_SAML_SP_INITIATED` as default identity provider.
-- Go back to client `FRONTEND_CLIENT`, got to Advanced section and set `SAML_IDP_FLOW` as browser flow in Authentication flow overrides.
+- Go back to client `OIDC_FRONTEND_CLIENT`, got to Advanced section and set `SAML_IDP_FLOW` as browser flow in Authentication flow overrides.
 - To dynamically create users on the SP without prompting the user to fill a form, go to `Authentication` create a new flow `CUSTOM_FIRST_BROKER_LOGIN_FLOW`, add two steps `Create User If Unique` and `Automatically set existing user` and set both as `Alternative`. Now go back to your newly added Identity Provider and set `CUSTOM_FIRST_BROKER_LOGIN_FLOW` as `First login flow override`.
 - Go to Realm roles and create a role named `CUSTOMER`.
 - Go to Identity Providers > `IDP_SAML_SP_INITIATED` > Mappers and create a new mapper with type `Hardcoded Role` and value `CUSTOMER`.
@@ -52,7 +52,7 @@ sequenceDiagram
 **Back to IdP:**
 - Create a new client on realm `IdP_realm` with the UI using Clients > Import Client and import SP SAML XML descriptor.
 
-## IdP-Initiated Flow
+## IdP-initiated flow
 
 The sequence set above refers to the SP-Initiated flow, where the user first accesses our application and is then redirected to the IdP.    
 It's also possible to implement an IdP-Initiated flow, where the user first accesses the IdP and is then redirected to the application. This may be necessary if the IdP does not properly implement the SAML standard. For example, Google SAML does not retain the RelayState parameter value. However, RelayState is crucial for Keycloak during an SP-Initiated flow as it stores a unique session ID there.    
@@ -97,8 +97,8 @@ AND CC.name = 'privateKey'
 For managing secrets and Keycloak configuration in general, I recommend using https://github.com/adorsys/keycloak-config-cli.
 
 #### Authentication Flow
-A custom SAML_IDP_FLOW authentication flow is used to ensure that user connections go through the IdP as the only option, without any prompt.  
-Alternatively, this can be achieved by using the kc_idp_hint=IDP_SAML query parameter in the first auth redirect request made by the FRONTEND_CLIENT.  
+A custom authentication flow is used to ensure that user connections go through the IdP as the only option, without any prompt.  
+Alternatively, this can be achieved by using the `kc_idp_hint` query parameter in the first auth redirect request made by the frontend client.  
 
 #### User Creation
 Users are dynamically created on the SP without prompting the user to fill out a form. The email provided by the IdP is used as the username, so when the user logs in again, the same account is used.  
@@ -113,7 +113,7 @@ Roles are provided by the IdP, but for demo purposes, a role (`CUSTOMER`) is har
 
 ## Testing
 
-### SP-Initiated
+### SP-initiated
 
 1. Go to http://localhost:8083 (Demo Python app that acts as the KC protected service/frontend)
 2. You should be redirected to the IdP login page
@@ -122,7 +122,7 @@ Roles are provided by the IdP, but for demo purposes, a role (`CUSTOMER`) is har
 5. You should be redirected to the demo app and see a welcome message
 
 
-### IdP-Initiated
+### IdP-initiated
 
 1. Go to http://localhost:8082/realms/IdP_realm/protocol/saml/clients/idp-initiated (IdP Initiated SSO URL)
 2. Login with username `john` and password `john`
