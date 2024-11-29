@@ -9,7 +9,7 @@ python = "^3.10"
 fastapi = "^0.104.1"
 uvicorn = "^0.24.0.post1"
 python-keycloak = "^3.3.0"
-requests = "^2.31.0"
+requests = "^2.32.2"
 setuptools = "^68.2.2"
 
 
